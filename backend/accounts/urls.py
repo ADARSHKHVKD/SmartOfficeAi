@@ -10,7 +10,7 @@ urlpatterns = [
     path('admin/users/',AdminUserListView.as_view()),
     path('admin/users/<int:pk>/',AdminUserDetailView.as_view()),
 
-    path('setup-production-users/', setupProductionUsers),
+    # path('setup-production-users/', setupProductionUsers),
 
     
 ]
