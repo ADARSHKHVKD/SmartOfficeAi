@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from rest_framework_simplejwt.tokens import RefreshToken
-
+from rest_framework.permissions import AllowAny
 from .serializers import LoginSerializer
 from accounts.models import User
 from .serializers import UserSerializer,AdminUserSerializer,LoginSerializer
@@ -203,3 +203,84 @@ class AdminUserDetailView(APIView):
 
 
 
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def setupProductionUsers(request):
+
+    # Admin
+    admin, _ = User.objects.get_or_create(
+        username='admin',
+        defaults={
+            'email': 'admin@smartoffice.local',
+            'role': 'admin'
+        }
+    )
+
+    admin.role = 'admin'
+    admin.set_password('admin')
+    admin.save()
+
+    # Manager
+    manager, _ = User.objects.get_or_create(
+        username='manager1',
+        defaults={
+            'email': 'manager1@smartoffice.local',
+            'role': 'manager'
+        }
+    )
+
+    manager.role = 'manager'
+    manager.set_password('manager@123')
+    manager.save()
+
+    # Adarsh
+    adarsh, _ = User.objects.get_or_create(
+        username='adarsh',
+        defaults={
+            'email': 'adarsh@smartoffice.local',
+            'role': 'user'
+        }
+    )
+
+    adarsh.role = 'user'
+    adarsh.manager = manager
+    adarsh.set_password('adarsh@123')
+    adarsh.save()
+
+    # Athul
+    athul, _ = User.objects.get_or_create(
+        username='athul',
+        defaults={
+            'email': 'athul@smartoffice.local',
+            'role': 'user'
+        }
+    )
+
+    athul.role = 'user'
+    athul.manager = manager
+    athul.set_password('athul@123')
+    athul.save()
+
+    return Response({
+        'message': 'Production users setup successfully',
+        'users': [
+            {
+                'username': 'admin',
+                'role': admin.role
+            },
+            {
+                'username': 'manager1',
+                'role': manager.role
+            },
+            {
+                'username': 'adarsh',
+                'role': adarsh.role,
+                'manager': adarsh.manager.username
+            },
+            {
+                'username': 'athul',
+                'role': athul.role,
+                'manager': athul.manager.username
+            }
+        ]
+    })
