@@ -200,3 +200,47 @@ class AdminUserDetailView(APIView):
             {'message': 'User deleted successfully'},
             status=status.HTTP_200_OK
         )
+
+
+
+
+
+from rest_framework.permissions import AllowAny
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def createProductionUser(request):
+
+    username = request.data.get('username')
+    password = request.data.get('password')
+    email = request.data.get('email', '')
+    role = request.data.get('role', 'user')
+
+    if not username or not password:
+        return Response(
+            {'message': 'Username and password are required'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    if User.objects.filter(username=username).exists():
+        return Response(
+            {'message': 'User already exists'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    user = User.objects.create_user(
+        username=username,
+        email=email,
+        password=password,
+        role=role
+    )
+
+    return Response(
+        {
+            'message': 'User created successfully',
+            'username': user.username,
+            'role': user.role
+        },
+        status=status.HTTP_201_CREATED
+    )
