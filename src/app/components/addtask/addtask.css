@@ -1,0 +1,178 @@
+.add-task-page {
+  width: 100%;
+}
+
+
+/* =========================
+   PAGE HEADER
+========================= */
+
+.page-header {
+  margin-bottom: 25px;
+}
+
+.page-header h1 {
+  margin: 0;
+  color: #0a3981;
+  font-size: 28px;
+}
+
+.page-header p {
+  margin: 6px 0 0;
+  color: #777;
+}
+
+
+/* =========================
+   FORM CARD
+========================= */
+
+.form-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+  border: 1px solid #e1e8f0;
+}
+
+
+/* =========================
+   FORM ROW
+========================= */
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+
+/* =========================
+   FORM GROUP
+========================= */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+
+/* =========================
+   INPUTS
+========================= */
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d5dde7;
+  border-radius: 7px;
+  padding: 11px 13px;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+  background: white;
+  transition: 0.2s;
+}
+
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #0a3981;
+  box-shadow: 0 0 0 2px rgba(10, 57, 129, 0.08);
+}
+
+
+/* =========================
+   TEXTAREA
+========================= */
+
+.form-group textarea {
+  min-height: 110px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e9ef;
+}
+
+
+.cancel-button,
+.save-button {
+  border: none;
+  border-radius: 7px;
+  padding: 11px 22px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+
+.cancel-button {
+  background: #eef2f6;
+  color: #555;
+}
+
+
+.cancel-button:hover {
+  background: #e1e6ec;
+}
+
+
+.save-button {
+  background: #0a3981;
+  color: white;
+}
+
+
+.save-button:hover {
+  background: #082f6b;
+}
+
+
+.save-button:disabled {
+  background: #9aaabd;
+  cursor: not-allowed;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+  .form-card {
+    padding: 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .page-header h1 {
+    font-size: 24px;
+  }
+
+}

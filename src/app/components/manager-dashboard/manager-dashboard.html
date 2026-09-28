@@ -1,0 +1,230 @@
+<div class="dashboard">
+
+  <!-- HEADER -->
+
+  <div class="page-header">
+
+    <div>
+
+      <h1>Manager Dashboard</h1>
+
+      <p>
+        Overview of your team
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- SUMMARY CARDS -->
+
+  <div class="cards">
+
+    <div class="card">
+
+      <h3>Team Tasks</h3>
+
+      <span>
+        {{ taskCount }}
+      </span>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Pending Leaves</h3>
+
+      <span>
+        {{ pendingLeaves }}
+      </span>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Team Hours</h3>
+
+      <span>
+        {{ hoursWorked | number:'1.1-2' }}
+      </span>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Present</h3>
+
+      <span>
+        {{ presentCount }}
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <!-- ATTENDANCE SUMMARY -->
+
+  <div class="attendance-card">
+
+    <h2>Team Attendance</h2>
+
+    <div class="attendance-summary">
+
+      <div class="attendance-item">
+
+        <span class="number">
+          {{ presentCount }}
+        </span>
+
+        <span>
+          Present
+        </span>
+
+      </div>
+
+
+      <div class="attendance-item">
+
+        <span class="number">
+          {{ lateCount }}
+        </span>
+
+        <span>
+          Late
+        </span>
+
+      </div>
+
+
+      <div class="attendance-item">
+
+        <span class="number">
+          {{ absentCount }}
+        </span>
+
+        <span>
+          Absent
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- RECENT TASKS -->
+
+  <div class="section-card">
+
+    <div class="section-header">
+
+      <h2>Recent Team Tasks</h2>
+
+      <a routerLink="/tasks">
+        View All
+      </a>
+
+    </div>
+
+
+    <div
+      class="empty"
+      *ngIf="tasks.length === 0">
+
+      No team tasks found.
+
+    </div>
+
+
+    <div
+      class="task-row"
+      *ngFor="let task of tasks | slice:0:5">
+
+      <div>
+
+        <h3>
+          {{ task.task_name }}
+        </h3>
+
+        <p>
+          {{ task.project_name }}
+        </p>
+
+      </div>
+
+
+      <span
+        class="status"
+        [ngClass]="task.status">
+
+        {{ task.status | titlecase }}
+
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <!-- LEAVE REQUESTS -->
+
+  <div class="section-card">
+
+    <div class="section-header">
+
+      <h2>Leave Requests</h2>
+
+      <a routerLink="/manager-leave">
+        View All
+      </a>
+
+    </div>
+
+
+    <div
+      class="empty"
+      *ngIf="leaves.length === 0">
+
+      No leave requests.
+
+    </div>
+
+
+    <div
+      class="leave-row"
+      *ngFor="let leave of leaves | slice:0:5">
+
+      <div>
+
+        <h3>
+          {{ leave.employee_name }}
+        </h3>
+
+        <p>
+          {{ leave.leave_type | titlecase }}
+          -
+          {{ leave.start_date }}
+        </p>
+
+      </div>
+
+
+      <span
+        class="status"
+        [ngClass]="leave.status">
+
+        {{ leave.status | titlecase }}
+
+      </span>
+
+    </div>
+
+  </div>
+
+</div>

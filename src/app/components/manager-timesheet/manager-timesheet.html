@@ -1,0 +1,131 @@
+<div class="page">
+
+  <div class="page-header">
+
+    <div>
+      <h1>Manager Timesheets</h1>
+      <p>View timesheets submitted by your employees</p>
+    </div>
+
+    <div class="total-card">
+
+      <span>Total Hours</span>
+
+      <strong>
+        {{ totalHours | number:'1.2-2' }}
+      </strong>
+
+    </div>
+
+  </div>
+
+
+  <div class="table-card">
+
+    <div class="table-header">
+
+      <h2>Employee Timesheets</h2>
+
+      <button
+        type="button"
+        class="refresh-button"
+        (click)="loadTimesheets()">
+
+        Refresh
+
+      </button>
+
+    </div>
+
+
+    <div
+      class="loading"
+      *ngIf="loading">
+
+      Loading timesheets...
+
+    </div>
+
+
+    <div
+      class="empty"
+      *ngIf="!loading && timesheets.length === 0">
+
+      No timesheets found.
+
+    </div>
+
+
+    <div
+      class="table-wrapper"
+      *ngIf="!loading && timesheets.length > 0">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>ID</th>
+
+            <th>Employee</th>
+
+            <th>Task</th>
+
+            <th>Project</th>
+
+            <th>Work Date</th>
+
+            <th>Hours</th>
+
+            <th>Description</th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <tr
+            *ngFor="let item of timesheets">
+
+            <td>
+              {{ item.id }}
+            </td>
+
+            <td class="employee">
+              {{ item.employee_name || item.employee }}
+            </td>
+
+            <td>
+              {{ item.task_name || item.task }}
+            </td>
+
+            <td>
+              {{ item.project_name }}
+            </td>
+
+            <td>
+              {{ item.work_date }}
+            </td>
+
+            <td class="hours">
+              {{ item.hours_worked }} hrs
+            </td>
+
+            <td class="description">
+              {{ item.description }}
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

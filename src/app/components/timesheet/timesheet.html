@@ -1,0 +1,290 @@
+<div class="timesheet-page">
+
+  <!-- PAGE HEADER -->
+
+  <div class="page-header">
+
+    <div>
+
+      <h1>Timesheet</h1>
+
+      <p>
+        Record your daily work and track hours spent on projects
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- ADD TIMESHEET -->
+
+  <div class="form-card">
+
+    <h2>Add Timesheet</h2>
+
+    <p class="form-description">
+      Enter the work you completed for a task
+    </p>
+
+
+    <form>
+
+
+      <!-- ROW 1 -->
+
+      <div class="form-row">
+
+
+        <!-- TASK -->
+
+        <div class="form-group">
+
+          <label>Task</label>
+
+          <select
+            name="task"
+            [(ngModel)]="timesheet.task"
+            (change)="taskChanged()">
+
+            <option [ngValue]="null">
+              Select task
+            </option>
+
+            <option
+              *ngFor="let task of tasks"
+              [ngValue]="task.id">
+
+              {{ task.task_name }}
+
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- PROJECT -->
+
+        <div class="form-group">
+
+          <label>Project Name</label>
+
+          <input
+            type="text"
+            name="project_name"
+            [(ngModel)]="timesheet.project_name"
+            placeholder="Project name"
+          />
+
+        </div>
+
+      </div>
+
+
+      <!-- ROW 2 -->
+
+      <div class="form-row">
+
+
+        <!-- WORK DATE -->
+
+        <div class="form-group">
+
+          <label>Work Date</label>
+
+          <input
+            type="date"
+            name="work_date"
+            [(ngModel)]="timesheet.work_date"
+          />
+
+        </div>
+
+
+        <!-- HOURS -->
+
+        <div class="form-group">
+
+          <label>Hours Worked</label>
+
+          <input
+            type="number"
+            name="hours_worked"
+            [(ngModel)]="timesheet.hours_worked"
+            min="0.1"
+            max="24"
+            step="0.5"
+            placeholder="Example: 8"
+          />
+
+        </div>
+
+      </div>
+
+
+      <!-- DESCRIPTION -->
+
+      <div class="form-group">
+
+        <label>Work Description</label>
+
+        <textarea
+          name="description"
+          [(ngModel)]="timesheet.description"
+          placeholder="Describe the work you completed">
+        </textarea>
+
+      </div>
+
+
+      <!-- BUTTON -->
+
+      <div class="form-actions">
+
+        <button
+          type="button"
+          class="save-button"
+          (click)="addTimesheet()"
+          [disabled]="loading">
+
+          {{ loading ? 'Saving...' : 'Add Timesheet' }}
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+
+  <!-- TIMESHEET TABLE -->
+
+  <div class="table-card">
+
+
+    <div class="table-header">
+
+      <div>
+
+        <h2>My Timesheets</h2>
+
+        <p>
+          View your submitted work records
+        </p>
+
+      </div>
+
+
+      <div class="record-count">
+
+        {{ timesheets.length }} Records
+
+      </div>
+
+    </div>
+
+
+    <!-- LOADING -->
+
+    <div
+      class="loading-container"
+      *ngIf="loading && timesheets.length === 0">
+
+      <div class="spinner"></div>
+
+      <p>Loading timesheets...</p>
+
+    </div>
+
+
+    <!-- TABLE -->
+
+    <div
+      class="table-wrapper"
+      *ngIf="!loading || timesheets.length > 0">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>ID</th>
+
+            <th>Task</th>
+
+            <th>Project</th>
+
+            <th>Work Date</th>
+
+            <th>Hours</th>
+
+            <th>Description</th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+
+          <tr
+            *ngFor="let item of timesheets">
+
+
+            <td>
+            {{ item.employee_name }}
+            </td>
+
+            <td>
+            {{ item.task_name }}
+            </td>
+
+            <td>
+            {{ item.project_name }}
+            </td>
+
+            <td>
+            {{ item.work_date }}
+            </td>
+
+            <td>
+            {{ item.hours_worked }} hrs
+            </td>
+
+            <td class="description">
+            {{ item.description }}
+            </td>
+
+
+          </tr>
+
+
+          <!-- NO DATA -->
+
+          <tr
+            *ngIf="timesheets.length === 0 && !loading">
+
+            <td
+              colspan="6"
+              class="no-data">
+
+              No timesheets found
+
+            </td>
+
+          </tr>
+
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

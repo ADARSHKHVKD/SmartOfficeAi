@@ -1,0 +1,175 @@
+.login-page {
+  display: flex;
+  min-height: calc(100vh - 70px);
+}
+
+/* LEFT 70% */
+
+.login-left {
+  width: 70%;
+  background: #f4f8fc;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome-content {
+  width: 70%;
+}
+
+.welcome-content h1 {
+  font-size: 42px;
+  color: #0a3981;
+  margin-bottom: 20px;
+}
+
+.welcome-content p {
+  font-size: 17px;
+  line-height: 1.7;
+  color: #555;
+  max-width: 650px;
+}
+
+
+/* FEATURES */
+
+.features {
+  margin-top: 35px;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-bottom: 18px;
+
+  font-size: 16px;
+  color: #333;
+}
+
+.feature-icon {
+  width: 28px;
+  height: 28px;
+
+  border-radius: 50%;
+
+  background: #0a68ae;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 14px;
+}
+
+
+/* RIGHT 30% */
+
+.login-right {
+  width: 30%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: white;
+}
+
+.login-card {
+  width: 75%;
+  
+}
+
+.login-card h2 {
+  font-size: 30px;
+  color: #0a3981;
+  margin-bottom: 8px;
+}
+
+.login-subtitle {
+  color:black;
+  margin-bottom: 30px;
+}
+
+
+/* FORM */
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  margin-bottom: 7px;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  height: 45px;
+
+  padding: 0 12px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #d5dce5;
+  border-radius: 7px;
+
+  outline: none;
+
+  font-size: 14px;
+}
+
+.form-group input:focus {
+  border-color: #0a68ae;
+}
+
+
+/* LOGIN BUTTON */
+
+button {
+  width: 100%;
+  height: 46px;
+
+  border: none;
+  border-radius: 7px;
+
+  background: #0a3981;
+  color: white;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0a68ae;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+
+  .login-left {
+    display: none;
+  }
+
+  .login-right {
+    width: 100%;
+  }
+
+  .login-card {
+    width: 80%;
+    max-width: 400px;
+  }
+
+}

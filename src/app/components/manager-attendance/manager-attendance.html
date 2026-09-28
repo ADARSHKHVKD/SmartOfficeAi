@@ -1,0 +1,207 @@
+<div class="manager-attendance-page">
+
+  <div class="page-header">
+
+    <div>
+      <h1>Manager Attendance</h1>
+      <p>View attendance records of your employees</p>
+    </div>
+
+    <button
+      class="refresh-btn"
+      (click)="refreshAttendance()"
+      [disabled]="loading">
+
+      ↻ Refresh
+
+    </button>
+
+  </div>
+
+
+  <!-- Summary Cards -->
+
+  <div class="summary-grid">
+
+    <div class="summary-card">
+
+      <div class="summary-icon">👥</div>
+
+      <div>
+        <h3>{{ totalEmployees }}</h3>
+        <p>Employees</p>
+      </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+      <div class="summary-icon">✓</div>
+
+      <div>
+        <h3>{{ presentCount }}</h3>
+        <p>Present</p>
+      </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+      <div class="summary-icon">◷</div>
+
+      <div>
+        <h3>{{ lateCount }}</h3>
+        <p>Late</p>
+      </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+      <div class="summary-icon">✕</div>
+
+      <div>
+        <h3>{{ absentCount }}</h3>
+        <p>Absent</p>
+      </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+      <div class="summary-icon">⏱</div>
+
+      <div>
+        <h3>{{ totalHours | number:'1.0-2' }}</h3>
+        <p>Total Hours</p>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Loading -->
+
+  <div class="loading" *ngIf="loading">
+
+    <div class="spinner"></div>
+
+    <p>Loading attendance...</p>
+
+  </div>
+
+
+  <!-- Attendance Table -->
+
+  <div class="table-card" *ngIf="!loading">
+
+    <div class="table-header">
+
+      <div>
+        <h2>Employee Attendance</h2>
+        <p>{{ attendance.length }} attendance records</p>
+      </div>
+
+    </div>
+
+
+    <div class="table-container">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>ID</th>
+            <th>Employee</th>
+            <th>Date</th>
+            <th>Check In</th>
+            <th>Check Out</th>
+            <th>Status</th>
+            <th>Working Hours</th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <tr *ngFor="let item of attendance">
+
+            <td>
+              #{{ item.id }}
+            </td>
+
+            <td>
+
+              <div class="employee">
+
+                <div class="avatar">
+                  {{ item.employee_name?.charAt(0)?.toUpperCase() }}
+                </div>
+
+                <span>
+                  {{ item.employee_name }}
+                </span>
+
+              </div>
+
+            </td>
+
+            <td>
+              {{ item.date }}
+            </td>
+
+            <td>
+              {{ item.check_in || '-' }}
+            </td>
+
+            <td>
+              {{ item.check_out || '-' }}
+            </td>
+
+            <td>
+
+              <span
+                class="status"
+                [ngClass]="item.status">
+
+                {{ item.status | titlecase }}
+
+              </span>
+
+            </td>
+
+            <td>
+              {{ item.working_hours || 0 }} hrs
+            </td>
+
+          </tr>
+
+
+          <tr *ngIf="attendance.length === 0">
+
+            <td colspan="7" class="empty">
+
+              No attendance records found.
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

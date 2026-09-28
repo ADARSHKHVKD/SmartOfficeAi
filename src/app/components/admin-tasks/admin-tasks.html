@@ -1,0 +1,462 @@
+<div class="admin-tasks-container">
+
+  <!-- HEADER -->
+
+  <div class="page-header">
+
+    <div>
+      <h1>Task Management</h1>
+
+      <p>
+        Create, assign and manage employee tasks
+      </p>
+    </div>
+
+    <button
+      class="add-btn"
+      (click)="openAddForm()">
+
+      + Add Task
+
+    </button>
+
+  </div>
+
+
+  <!-- LOADING -->
+
+  <div
+    class="loading"
+    *ngIf="loading">
+
+    Loading tasks...
+
+  </div>
+
+
+  <!-- EMPTY -->
+
+  <div
+    class="empty"
+    *ngIf="!loading && tasks.length === 0">
+
+    <div class="empty-icon">
+      📋
+    </div>
+
+    <h3>No tasks found</h3>
+
+    <p>
+      Create a task to assign work to an employee.
+    </p>
+
+  </div>
+
+
+  <!-- TASK TABLE -->
+
+  <div
+    class="table-container"
+    *ngIf="!loading && tasks.length > 0">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>ID</th>
+
+          <th>Task</th>
+
+          <th>Project</th>
+
+          <th>Assigned To</th>
+
+          <th>Start Date</th>
+
+          <th>End Date</th>
+
+          <th>Priority</th>
+
+          <th>Status</th>
+
+          <th>Actions</th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        <tr *ngFor="let item of tasks">
+
+          <td>
+            #{{ item.id }}
+          </td>
+
+          <td>
+
+            <div class="task-name">
+
+              {{ item.task_name }}
+
+            </div>
+
+            <div class="description">
+
+              {{ item.description }}
+
+            </div>
+
+          </td>
+
+
+          <td>
+            {{ item.project_name }}
+          </td>
+
+
+          <td>
+
+            <span class="employee">
+
+              {{ getEmployeeName(item.assigned_to) }}
+
+            </span>
+
+          </td>
+
+
+          <td>
+            {{ item.start_date }}
+          </td>
+
+
+          <td>
+            {{ item.end_date }}
+          </td>
+
+
+          <td>
+
+            <span
+              class="priority"
+              [ngClass]="item.priority">
+
+              {{ item.priority | titlecase }}
+
+            </span>
+
+          </td>
+
+
+          <td>
+
+            <span
+              class="status"
+              [ngClass]="item.status">
+
+              {{ getStatusLabel(item.status) }}
+
+            </span>
+
+          </td>
+
+
+          <td>
+
+            <div class="actions">
+
+              <button
+                class="edit-btn"
+                (click)="openEditForm(item)">
+
+                Edit
+
+              </button>
+
+
+              <button
+                class="delete-btn"
+                (click)="deleteTask(item)">
+
+                Delete
+
+              </button>
+
+            </div>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+
+  <!-- ADD / EDIT MODAL -->
+
+  <div
+    class="modal-overlay"
+    *ngIf="showForm">
+
+
+    <div class="modal">
+
+
+      <!-- MODAL HEADER -->
+
+      <div class="modal-header">
+
+        <div>
+
+          <h2>
+
+            {{ editMode ? 'Edit Task' : 'Create Task' }}
+
+          </h2>
+
+          <p>
+
+            {{ editMode
+              ? 'Update task information'
+              : 'Assign a new task to an employee'
+            }}
+
+          </p>
+
+        </div>
+
+
+        <button
+          class="close-btn"
+          (click)="closeForm()">
+
+          ×
+
+        </button>
+
+      </div>
+
+
+      <!-- FORM -->
+
+      <div class="form">
+
+
+        <!-- TASK NAME -->
+
+        <div class="form-group">
+
+          <label>
+            Task Name
+          </label>
+
+          <input
+            type="text"
+            [(ngModel)]="task.task_name"
+            placeholder="Enter task name">
+
+        </div>
+
+
+        <!-- PROJECT -->
+
+        <div class="form-group">
+
+          <label>
+            Project Name
+          </label>
+
+          <input
+            type="text"
+            [(ngModel)]="task.project_name"
+            placeholder="Enter project name">
+
+        </div>
+
+
+        <!-- ASSIGN TO -->
+
+        <div class="form-group">
+
+          <label>
+            Assign To
+          </label>
+
+          <select
+            [(ngModel)]="task.assigned_to">
+
+            <option [ngValue]="null">
+
+              Select Employee
+
+            </option>
+
+            <option
+              *ngFor="let user of users"
+              [ngValue]="user.id">
+
+              {{ user.username }}
+
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- STATUS -->
+
+        <div class="form-row">
+
+
+          <div class="form-group">
+
+            <label>
+              Status
+            </label>
+
+            <select
+              [(ngModel)]="task.status">
+
+              <option value="pending">
+                Pending
+              </option>
+
+              <option value="in_progress">
+                In Progress
+              </option>
+
+              <option value="completed">
+                Completed
+              </option>
+
+              <option value="cancelled">
+                Cancelled
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- PRIORITY -->
+
+          <div class="form-group">
+
+            <label>
+              Priority
+            </label>
+
+            <select
+              [(ngModel)]="task.priority">
+
+              <option value="low">
+                Low
+              </option>
+
+              <option value="medium">
+                Medium
+              </option>
+
+              <option value="high">
+                High
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <!-- DATES -->
+
+        <div class="form-row">
+
+
+          <div class="form-group">
+
+            <label>
+              Start Date
+            </label>
+
+            <input
+              type="date"
+              [(ngModel)]="task.start_date">
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              End Date
+            </label>
+
+            <input
+              type="date"
+              [(ngModel)]="task.end_date">
+
+          </div>
+
+        </div>
+
+
+        <!-- DESCRIPTION -->
+
+        <div class="form-group">
+
+          <label>
+            Description
+          </label>
+
+          <textarea
+            rows="4"
+            [(ngModel)]="task.description"
+            placeholder="Enter task description">
+          </textarea>
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="form-actions">
+
+          <button
+            class="cancel-btn"
+            (click)="closeForm()">
+
+            Cancel
+
+          </button>
+
+
+          <button
+            class="save-btn"
+            (click)="saveTask()"
+            [disabled]="saving">
+
+            {{ saving
+              ? 'Saving...'
+              : (editMode ? 'Update Task' : 'Create Task')
+            }}
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,252 @@
+<div class="manager-leave-page">
+
+  <!-- Page Header -->
+
+  <div class="page-header">
+
+    <div>
+
+      <h1>Leave Requests</h1>
+
+      <p>
+        Review and manage employee leave requests
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- Loading -->
+
+  <div
+    class="loading-container"
+    *ngIf="loading">
+
+    <div class="spinner"></div>
+
+    <p>Loading leave requests...</p>
+
+  </div>
+
+
+  <!-- Leave Table -->
+
+  <div
+    class="table-card"
+    *ngIf="!loading">
+
+    <div class="table-header">
+
+      <div>
+
+        <h2>Employee Leave Requests</h2>
+
+        <p>
+          Review pending leave applications and take action
+        </p>
+
+      </div>
+
+      <div class="request-count">
+
+        {{ leaves.length }} Requests
+
+      </div>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <!-- <th>ID</th> -->
+
+            <th>Employee</th>
+
+            <th>Leave Type</th>
+
+            <th>Start Date</th>
+
+            <th>End Date</th>
+
+            <th>Reason</th>
+
+            <th>Status</th>
+
+            <th>Manager Comment</th>
+
+            <th>Action</th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <tr
+            *ngFor="let leave of leaves">
+
+            <!-- ID -->
+
+            <!-- <td>
+              {{ leave.id }}
+            </td> -->
+
+
+            <!-- Employee -->
+
+            <td>
+
+              <div class="employee">
+
+                <div class="employee-icon">
+                  👤
+                </div>
+
+                <span>
+                   {{ leave.employee_name  }}
+                </span>
+
+              </div>
+
+            </td>
+
+
+            <!-- Leave Type -->
+
+            <td>
+
+              <span class="leave-type">
+
+                {{ leave.leave_type }}
+
+              </span>
+
+            </td>
+
+
+            <!-- Start Date -->
+
+            <td>
+              {{ leave.start_date }}
+            </td>
+
+
+            <!-- End Date -->
+
+            <td>
+              {{ leave.end_date }}
+            </td>
+
+
+            <!-- Reason -->
+
+            <td class="reason">
+
+              {{ leave.reason }}
+
+            </td>
+
+
+            <!-- Status -->
+
+            <td>
+
+              <span
+                class="status"
+                [ngClass]="leave.status">
+
+                {{ leave.status }}
+
+              </span>
+
+            </td>
+
+
+            <!-- Manager Comment -->
+
+            <td>
+
+              <textarea
+                [(ngModel)]="leave.manager_comment"
+                [disabled]="leave.status !== 'pending'"
+                placeholder="Enter comment">
+              </textarea>
+
+            </td>
+
+
+            <!-- Action -->
+
+            <td>
+
+                <div
+                    class="actions"
+                    *ngIf="leave.status === 'pending'">
+
+                    <button
+                    type="button"
+                    class="approve-button"
+                    (click)="approveLeave(leave)"
+                    [disabled]="actionLoading === leave.id">
+
+                    {{ actionLoading === leave.id ? 'Updating...' : 'Approve' }}
+
+                    </button>
+
+                    <button
+                    type="button"
+                    class="reject-button"
+                    (click)="rejectLeave(leave)"
+                    [disabled]="actionLoading === leave.id">
+
+                    Reject
+
+                    </button>
+
+                </div>
+
+                <div
+                    class="completed"
+                    *ngIf="leave.status !== 'pending'">
+
+                    {{ leave.status }}
+
+                </div>
+
+                </td>
+
+          </tr>
+
+
+          <!-- No Data -->
+
+          <tr
+            *ngIf="leaves.length === 0">
+
+            <td
+              colspan="9"
+              class="no-data">
+
+              No leave requests found
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

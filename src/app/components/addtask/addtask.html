@@ -1,0 +1,226 @@
+<div class="add-task-page">
+
+  <div class="page-header">
+
+    <div>
+
+      <h1>
+        {{ editMode ? 'Edit Task' : 'Add Task' }}
+      </h1>
+
+      <p>
+        {{ editMode ? 'Update task details' : 'Create a new task' }}
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="form-card">
+
+    <form>
+
+      <!-- Task Name + Project Name -->
+
+      <div class="form-row">
+
+        <div class="form-group">
+
+          <label>Task Name</label>
+
+          <input
+            type="text"
+            name="task_name"
+            [(ngModel)]="task.task_name"
+            placeholder="Enter task name"
+          />
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Project Name</label>
+
+          <input
+            type="text"
+            name="project_name"
+            [(ngModel)]="task.project_name"
+            placeholder="Enter project name"
+          />
+
+        </div>
+
+      </div>
+
+
+      <!-- Description -->
+
+      <div class="form-group">
+
+        <label>Description</label>
+
+        <textarea
+          name="description"
+          [(ngModel)]="task.description"
+          placeholder="Enter task description">
+        </textarea>
+
+      </div>
+
+
+      <!-- Dates -->
+
+      <div class="form-row">
+
+        <div class="form-group">
+
+          <label>Start Date</label>
+
+          <input
+            type="date"
+            name="start_date"
+            [(ngModel)]="task.start_date"
+          />
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>End Date</label>
+
+          <input
+            type="date"
+            name="end_date"
+            [(ngModel)]="task.end_date"
+          />
+
+        </div>
+
+      </div>
+
+
+      <!-- Status + Priority -->
+
+      <div class="form-row">
+
+        <div class="form-group">
+
+          <label>Status</label>
+
+          <select
+            name="status"
+            [(ngModel)]="task.status">
+
+            <option value="pending">
+              Pending
+            </option>
+
+            <option value="in_progress">
+              In Progress
+            </option>
+
+            <option value="completed">
+              Completed
+            </option>
+
+            <option value="cancelled">
+              Cancelled
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Priority</label>
+
+          <select
+            name="priority"
+            [(ngModel)]="task.priority">
+
+            <option value="low">
+              Low
+            </option>
+
+            <option value="medium">
+              Medium
+            </option>
+
+            <option value="high">
+              High
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <!-- Assigned To -->
+
+      <div class="form-group">
+
+        <label>Assigned To</label>
+
+        <select
+          name="assigned_to"
+          [(ngModel)]="task.assigned_to">
+
+          <option [ngValue]="null">
+            Select employee
+          </option>
+
+          <option
+            *ngFor="let user of users"
+            [ngValue]="user.id">
+
+            {{ user.username }}
+
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- Buttons -->
+
+      <div class="form-actions">
+
+        <button
+          type="button"
+          class="cancel-button"
+          (click)="cancel()">
+
+          Cancel
+
+        </button>
+
+
+        <button
+          type="button"
+          class="save-button"
+          (click)="saveTask()"
+          [disabled]="loading">
+
+          {{
+            loading
+              ? 'Saving...'
+              : (editMode ? 'Update Task' : 'Add Task')
+          }}
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

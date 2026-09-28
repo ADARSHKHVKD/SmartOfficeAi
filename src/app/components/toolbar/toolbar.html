@@ -1,0 +1,87 @@
+<div class="toolbar">
+
+  <!-- LEFT SIDE -->
+  <div class="brand">
+
+    <div class="logo">
+      <span>SA</span>
+    </div>
+
+    <div class="brand-text">
+      <span class="title">
+        Smart Office AI
+      </span>
+
+      <span class="subtitle">
+        Smart Employee Management
+      </span>
+    </div>
+
+  </div>
+
+
+  <!-- RIGHT SIDE - ONLY AFTER LOGIN -->
+  <div
+    class="user-section"
+    *ngIf="username">
+
+    <div
+      class="user-button"
+      (click)="toggleMenu()">
+
+      <div class="user-icon">
+        👤
+      </div>
+
+      <span class="username">
+        {{ username }}
+      </span>
+
+      <span class="arrow">
+        ▼
+      </span>
+
+    </div>
+
+
+    <!-- DROPDOWN -->
+    <div
+      class="user-menu"
+      *ngIf="menuOpen">
+
+      <div class="menu-user">
+
+        <strong>
+          {{ username }}
+        </strong>
+
+        <small>
+          {{ role }}
+        </small>
+
+      </div>
+
+
+      <!-- ADMIN ONLY -->
+      <!-- <button
+        *ngIf="role === 'admin'"
+        (click)="goToAdmin()">
+
+        ⚙ Admin Page
+
+      </button> -->
+
+
+      <!-- LOGOUT -->
+      <button
+        (click)="logout()">
+
+        ↪ Logout
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

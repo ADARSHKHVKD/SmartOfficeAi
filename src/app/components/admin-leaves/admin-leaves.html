@@ -1,0 +1,368 @@
+<div class="admin-leaves-container">
+
+  <!-- HEADER -->
+
+  <div class="page-header">
+
+    <div>
+
+      <h1>Leave Management</h1>
+
+      <p>
+        Manage employee leave requests
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- LOADING -->
+
+  <div
+    class="loading"
+    *ngIf="loading">
+
+    Loading leave requests...
+
+  </div>
+
+
+  <!-- EMPTY -->
+
+  <div
+    class="empty"
+    *ngIf="!loading && leaves.length === 0">
+
+    <div class="empty-icon">
+      🗓️
+    </div>
+
+    <h3>No leave requests</h3>
+
+    <p>
+      There are no employee leave requests.
+    </p>
+
+  </div>
+
+
+  <!-- TABLE -->
+
+  <div
+    class="table-container"
+    *ngIf="!loading && leaves.length > 0">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>ID</th>
+
+          <th>Employee</th>
+
+          <th>Leave Type</th>
+
+          <th>Start Date</th>
+
+          <th>End Date</th>
+
+          <th>Manager</th>
+
+          <th>Status</th>
+
+          <th>Actions</th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        <tr *ngFor="let leave of leaves">
+
+          <td>
+            #{{ leave.id }}
+          </td>
+
+
+          <td>
+
+            <strong>
+              {{ leave.employee_name }}
+            </strong>
+
+          </td>
+
+
+          <td>
+            {{ leave.leave_type | titlecase }}
+          </td>
+
+
+          <td>
+            {{ leave.start_date }}
+          </td>
+
+
+          <td>
+            {{ leave.end_date }}
+          </td>
+
+
+          <td>
+            {{ leave.manager_name || '-' }}
+          </td>
+
+
+          <td>
+
+            <span
+              class="status"
+              [ngClass]="leave.status">
+
+              {{ getStatusLabel(leave.status) }}
+
+            </span>
+
+          </td>
+
+
+          <td>
+
+            <div class="actions">
+
+              <button
+                class="view-btn"
+                (click)="openLeave(leave)">
+
+                View
+
+              </button>
+
+
+              <button
+                class="delete-btn"
+                (click)="deleteLeave(leave)">
+
+                Delete
+
+              </button>
+
+            </div>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+
+  <!-- DETAILS MODAL -->
+
+  <div
+    class="modal-overlay"
+    *ngIf="showModal">
+
+
+    <div class="modal">
+
+
+      <!-- HEADER -->
+
+      <div class="modal-header">
+
+        <div>
+
+          <h2>
+            Leave Details
+          </h2>
+
+          <p>
+            Review employee leave request
+          </p>
+
+        </div>
+
+
+        <button
+          class="close-btn"
+          (click)="closeModal()">
+
+          ×
+
+        </button>
+
+      </div>
+
+
+      <!-- DETAILS -->
+
+      <div
+        class="details"
+        *ngIf="selectedLeave">
+
+
+        <div class="detail-item">
+
+          <label>
+            Employee
+          </label>
+
+          <span>
+            {{ selectedLeave.employee_name }}
+          </span>
+
+        </div>
+
+
+        <div class="detail-item">
+
+          <label>
+            Manager
+          </label>
+
+          <span>
+            {{ selectedLeave.manager_name || '-' }}
+          </span>
+
+        </div>
+
+
+        <div class="detail-item">
+
+          <label>
+            Leave Type
+          </label>
+
+          <span>
+            {{ selectedLeave.leave_type | titlecase }}
+          </span>
+
+        </div>
+
+
+        <div class="detail-item">
+
+          <label>
+            Start Date
+          </label>
+
+          <span>
+            {{ selectedLeave.start_date }}
+          </span>
+
+        </div>
+
+
+        <div class="detail-item">
+
+          <label>
+            End Date
+          </label>
+
+          <span>
+            {{ selectedLeave.end_date }}
+          </span>
+
+        </div>
+
+
+        <div class="detail-item full">
+
+          <label>
+            Reason
+          </label>
+
+          <span>
+            {{ selectedLeave.reason }}
+          </span>
+
+        </div>
+
+
+        <!-- STATUS -->
+
+        <div class="form-group">
+
+          <label>
+            Status
+          </label>
+
+          <select
+            [(ngModel)]="selectedStatus">
+
+            <option value="pending">
+              Pending
+            </option>
+
+            <option value="approved">
+              Approved
+            </option>
+
+            <option value="rejected">
+              Rejected
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- COMMENT -->
+
+        <div class="form-group">
+
+          <label>
+            Comment
+          </label>
+
+          <textarea
+            rows="4"
+            [(ngModel)]="managerComment"
+            placeholder="Add a comment">
+
+          </textarea>
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="form-actions">
+
+          <button
+            class="cancel-btn"
+            (click)="closeModal()">
+
+            Cancel
+
+          </button>
+
+
+          <button
+            class="save-btn"
+            (click)="updateLeave()"
+            [disabled]="saving">
+
+            {{ saving ? 'Saving...' : 'Update Leave' }}
+
+          </button>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

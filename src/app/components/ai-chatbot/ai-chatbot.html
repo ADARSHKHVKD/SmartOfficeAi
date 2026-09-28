@@ -1,0 +1,160 @@
+<!-- Floating AI Button -->
+
+<button
+  class="ai-button"
+  (click)="toggleChat()"
+  *ngIf="!isOpen">
+
+  🤖
+
+</button>
+
+
+<!-- Chat Window -->
+
+<div
+  class="chat-container"
+  *ngIf="isOpen">
+
+  <!-- Header -->
+
+  <div class="chat-header">
+
+    <div class="ai-title">
+
+      <div class="ai-icon">
+        🤖
+      </div>
+
+      <div>
+        <h3>Smart Office AI</h3>
+        <span>AI Assistant</span>
+      </div>
+
+    </div>
+
+    <button
+      class="close-button"
+      (click)="toggleChat()">
+
+      ×
+
+    </button>
+
+  </div>
+
+
+  <!-- Messages -->
+
+  <div class="chat-messages">
+
+    <!-- Welcome message -->
+
+    <div
+      class="message ai-message"
+      *ngIf="messages.length === 0">
+
+      <div class="message-icon">
+        🤖
+      </div>
+
+      <div class="message-content">
+
+        <p>
+          Hi! I'm your Smart Office AI assistant.
+        </p>
+
+        <p>
+          You can ask me about your tasks, projects,
+          leaves, attendance and timesheets.
+        </p>
+        <div class="suggested-questions">
+
+            <button
+                *ngFor="let question of role === 'manager'
+                ? managerQuestions
+                : userQuestions"
+                (click)="askSuggestedQuestion(question)">
+
+                {{ question }}
+
+            </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- Chat messages -->
+
+    <div
+      class="message"
+      *ngFor="let item of messages"
+      [ngClass]="item.sender === 'user'
+        ? 'user-message'
+        : 'ai-message'">
+
+      <div
+        class="message-icon"
+        *ngIf="item.sender === 'ai'">
+
+        🤖
+
+      </div>
+
+      <div class="message-content">
+
+        <p>{{ item.text }}</p>
+
+      </div>
+
+    </div>
+
+
+    <!-- Loading -->
+
+    <div
+      class="message ai-message"
+      *ngIf="loading">
+
+      <div class="message-icon">
+        🤖
+      </div>
+
+      <div class="typing">
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Input -->
+
+  <div class="chat-input">
+
+    <textarea
+      [(ngModel)]="message"
+      (keydown)="handleEnter($event)"
+      placeholder="Ask me anything..."
+      rows="1">
+    </textarea>
+
+    <button
+      (click)="sendMessage()"
+      [disabled]="!message.trim() || loading">
+
+      ➤
+
+    </button>
+
+  </div>
+
+</div>

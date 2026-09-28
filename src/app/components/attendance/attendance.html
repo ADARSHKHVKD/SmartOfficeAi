@@ -1,0 +1,230 @@
+<div class="page">
+
+  <!-- Header -->
+
+  <div class="page-header">
+
+    <div>
+      <h1>Attendance</h1>
+      <p>Track your daily attendance and working hours</p>
+    </div>
+
+  </div>
+
+
+  <!-- Today's Attendance -->
+
+  <div class="today-card">
+
+    <div class="today-header">
+
+      <div>
+        <h2>Today's Attendance</h2>
+
+        <p>
+          {{ todayAttendance?.date || 'Not checked in yet' }}
+        </p>
+      </div>
+
+      <div
+        class="status"
+        [ngClass]="{
+          'present': todayAttendance?.status === 'present',
+          'absent': todayAttendance?.status === 'absent',
+          'late': todayAttendance?.status === 'late'
+        }">
+
+        {{ todayAttendance?.status || 'Not Marked' }}
+
+      </div>
+
+    </div>
+
+
+    <div class="attendance-info">
+
+      <div class="info-box">
+
+        <span>Check In</span>
+
+        <strong>
+          {{ todayAttendance?.check_in || '--' }}
+        </strong>
+
+      </div>
+
+
+      <div class="info-box">
+
+        <span>Check Out</span>
+
+        <strong>
+          {{ todayAttendance?.check_out || '--' }}
+        </strong>
+
+      </div>
+
+
+      <div class="info-box">
+
+        <span>Working Hours</span>
+
+        <strong>
+          {{ todayAttendance?.working_hours || '0.00' }}
+          hrs
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <div class="actions">
+
+      <button
+        type="button"
+        class="checkin-button"
+        (click)="checkIn()"
+        [disabled]="
+          actionLoading ||
+          todayAttendance?.check_in
+        ">
+
+        {{
+          actionLoading
+            ? 'Processing...'
+            : 'Check In'
+        }}
+
+      </button>
+
+
+      <button
+        type="button"
+        class="checkout-button"
+        (click)="checkOut()"
+        [disabled]="
+          actionLoading ||
+          !todayAttendance?.check_in ||
+          todayAttendance?.check_out
+        ">
+
+        Check Out
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- Attendance History -->
+
+  <div class="table-card">
+
+    <div class="table-header">
+
+      <h2>Attendance History</h2>
+
+      <button
+        type="button"
+        class="refresh-button"
+        (click)="loadAttendance()">
+
+        Refresh
+
+      </button>
+
+    </div>
+
+
+    <div
+      class="loading"
+      *ngIf="loading">
+
+      Loading attendance...
+
+    </div>
+
+
+    <div
+      class="empty"
+      *ngIf="!loading && attendance.length === 0">
+
+      No attendance records found.
+
+    </div>
+
+
+    <div
+      class="table-wrapper"
+      *ngIf="!loading && attendance.length > 0">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Date</th>
+
+            <th>Check In</th>
+
+            <th>Check Out</th>
+
+            <th>Status</th>
+
+            <th>Working Hours</th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <tr
+            *ngFor="let item of attendance">
+
+            <td>
+              {{ item.date }}
+            </td>
+
+            <td>
+              {{ item.check_in || '--' }}
+            </td>
+
+            <td>
+              {{ item.check_out || '--' }}
+            </td>
+
+            <td>
+
+              <span
+                class="status-badge"
+                [ngClass]="item.status">
+
+                {{ item.status }}
+
+              </span>
+
+            </td>
+
+            <td class="hours">
+
+              {{ item.working_hours }}
+              hrs
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,332 @@
+<div class="department-page">
+
+  <!-- Page Header -->
+  <div class="page-header">
+
+    <div>
+      <h1>Department Management</h1>
+
+      <p>
+        Create and manage company departments
+      </p>
+    </div>
+
+    <div class="header-actions">
+
+      <button
+        class="refresh-btn"
+        (click)="loadDepartments()">
+
+        ↻ Refresh
+
+      </button>
+
+      <button
+        class="add-btn"
+        (click)="openAddForm()">
+
+        + Add Department
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- Add / Edit Form -->
+  <div
+    class="form-card"
+    *ngIf="showForm">
+
+    <div class="form-header">
+
+      <div>
+
+        <h2>
+          {{ editMode ? 'Edit Department' : 'Add Department' }}
+        </h2>
+
+        <p>
+          {{ editMode
+            ? 'Update department information'
+            : 'Create a new department'
+          }}
+        </p>
+
+      </div>
+
+      <button
+        class="close-btn"
+        (click)="closeForm()">
+
+        ×
+
+      </button>
+
+    </div>
+
+
+    <div class="form-grid">
+
+      <!-- Department Name -->
+      <div class="form-group">
+
+        <label>
+          Department Name
+        </label>
+
+        <input
+          type="text"
+          [(ngModel)]="department.name"
+          placeholder="Enter department name">
+
+      </div>
+
+
+      <!-- Manager -->
+      <div class="form-group">
+
+        <label>
+          Department Manager
+        </label>
+
+        <select
+          [(ngModel)]="department.manager">
+
+          <option [ngValue]="null">
+            Select Manager
+          </option>
+
+          <option
+            *ngFor="let manager of managers"
+            [ngValue]="manager.id">
+
+            {{ manager.username }}
+
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- Description -->
+      <div class="form-group full-width">
+
+        <label>
+          Description
+        </label>
+
+        <textarea
+          [(ngModel)]="department.description"
+          rows="4"
+          placeholder="Enter department description">
+        </textarea>
+
+      </div>
+
+    </div>
+
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+
+      <button
+        class="cancel-btn"
+        (click)="closeForm()">
+
+        Cancel
+
+      </button>
+
+      <button
+        class="save-btn"
+        [disabled]="saving"
+        (click)="saveDepartment()">
+
+        {{ saving
+          ? 'Saving...'
+          : editMode
+            ? 'Update Department'
+            : 'Create Department'
+        }}
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- Loading -->
+  <div
+    class="loading"
+    *ngIf="loading">
+
+    <div class="spinner"></div>
+
+    <p>Loading departments...</p>
+
+  </div>
+
+
+  <!-- Department Table -->
+  <div
+    class="table-card"
+    *ngIf="!loading">
+
+    <div class="table-header">
+
+      <div>
+
+        <h2>Departments</h2>
+
+        <span>
+          {{ departments.length }}
+          department{{ departments.length === 1 ? '' : 's' }}
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- Empty State -->
+    <div
+      class="empty-state"
+      *ngIf="departments.length === 0">
+
+      <div class="empty-icon">
+        🏢
+      </div>
+
+      <h3>
+        No departments found
+      </h3>
+
+      <p>
+        Create your first department to get started.
+      </p>
+
+      <button
+        class="add-btn"
+        (click)="openAddForm()">
+
+        + Add Department
+
+      </button>
+
+    </div>
+
+
+    <!-- Table -->
+    <div
+      class="table-wrapper"
+      *ngIf="departments.length > 0">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>ID</th>
+
+            <th>Department</th>
+
+            <th>Description</th>
+
+            <th>Manager</th>
+
+            <th>Actions</th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <tr
+            *ngFor="let item of departments">
+
+            <td>
+              #{{ item.id }}
+            </td>
+
+
+            <td>
+
+              <div class="department-name">
+
+                <div class="department-icon">
+                  🏢
+                </div>
+
+                <strong>
+                  {{ item.name }}
+                </strong>
+
+              </div>
+
+            </td>
+
+
+            <td>
+
+              <span class="description">
+
+                {{ item.description || '-' }}
+
+              </span>
+
+            </td>
+
+
+            <td>
+
+              <span class="manager-badge">
+
+                {{ getManagerName(item.manager) }}
+
+              </span>
+
+            </td>
+
+
+            <td>
+
+              <div class="action-buttons">
+
+                <button
+                  class="edit-btn"
+                  (click)="openEditForm(item)">
+
+                  Edit
+
+                </button>
+
+                <button
+                  class="delete-btn"
+                  (click)="deleteDepartment(item)">
+
+                  Delete
+
+                </button>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

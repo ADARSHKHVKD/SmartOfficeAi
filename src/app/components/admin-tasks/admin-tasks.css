@@ -1,0 +1,468 @@
+.admin-tasks-container {
+  padding: 25px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 28px;
+  color: #0A3981;
+}
+
+.page-header p {
+  margin-top: 6px;
+  color: #6b7280;
+}
+
+
+/* =========================
+   ADD BUTTON
+========================= */
+
+.add-btn {
+  border: none;
+  background: #0A3981;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.add-btn:hover {
+  background: #082e68;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-container {
+  background: white;
+  border-radius: 12px;
+  overflow-x: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1100px;
+}
+
+thead {
+  background: #f5f8fc;
+}
+
+th {
+  padding: 15px;
+  text-align: left;
+  font-size: 13px;
+  color: #475569;
+  white-space: nowrap;
+}
+
+td {
+  padding: 15px;
+  border-top: 1px solid #edf0f5;
+  font-size: 14px;
+  color: #334155;
+}
+
+tbody tr:hover {
+  background: #fafcff;
+}
+
+
+/* =========================
+   TASK
+========================= */
+
+.task-name {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.description {
+  margin-top: 4px;
+  max-width: 220px;
+  color: #94a3b8;
+  font-size: 12px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================
+   EMPLOYEE
+========================= */
+
+.employee {
+  font-weight: 500;
+  color: #0A3981;
+}
+
+
+/* =========================
+   PRIORITY
+========================= */
+
+.priority {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.priority.low {
+  background: #e8f7ee;
+  color: #16834a;
+}
+
+.priority.medium {
+  background: #fff7df;
+  color: #9a6a00;
+}
+
+.priority.high {
+  background: #ffe8e8;
+  color: #c62828;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status.pending {
+  background: #fff7df;
+  color: #9a6a00;
+}
+
+.status.in_progress {
+  background: #e7f1ff;
+  color: #1769aa;
+}
+
+.status.completed {
+  background: #e8f7ee;
+  color: #16834a;
+}
+
+.status.cancelled {
+  background: #ffe8e8;
+  color: #c62828;
+}
+
+
+/* =========================
+   ACTIONS
+========================= */
+
+.actions {
+  display: flex;
+  gap: 7px;
+}
+
+.edit-btn,
+.delete-btn {
+  border: none;
+  padding: 7px 11px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.edit-btn {
+  background: #e7f1ff;
+  color: #1769aa;
+}
+
+.delete-btn {
+  background: #ffe8e8;
+  color: #c62828;
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.loading {
+  text-align: center;
+  padding: 60px;
+  color: #64748b;
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty {
+  background: white;
+  text-align: center;
+  padding: 70px 20px;
+  border-radius: 12px;
+}
+
+.empty-icon {
+  font-size: 45px;
+}
+
+.empty h3 {
+  margin: 15px 0 5px;
+  color: #1e293b;
+}
+
+.empty p {
+  color: #64748b;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(15, 23, 42, 0.45);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1000;
+
+  padding: 20px;
+}
+
+
+.modal {
+  width: 100%;
+  max-width: 650px;
+
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+  background: white;
+
+  border-radius: 14px;
+
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+
+/* =========================
+   MODAL HEADER
+========================= */
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 22px 25px;
+
+  border-bottom: 1px solid #edf0f5;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: #0A3981;
+}
+
+.modal-header p {
+  margin: 5px 0 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.close-btn {
+  border: none;
+  background: transparent;
+
+  font-size: 28px;
+
+  color: #64748b;
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form {
+  padding: 25px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  color: #334155;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 11px 12px;
+
+  border: 1px solid #d9e0e8;
+
+  border-radius: 7px;
+
+  font-size: 14px;
+
+  outline: none;
+
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+
+  border-color: #0A3981;
+
+  box-shadow: 0 0 0 2px rgba(10, 57, 129, 0.08);
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.form-row {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 15px;
+}
+
+
+/* =========================
+   FORM BUTTONS
+========================= */
+
+.form-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 25px;
+}
+
+.cancel-btn,
+.save-btn {
+
+  border: none;
+
+  padding: 11px 18px;
+
+  border-radius: 7px;
+
+  cursor: pointer;
+
+  font-weight: 600;
+}
+
+.cancel-btn {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.save-btn {
+  background: #0A3981;
+  color: white;
+}
+
+.save-btn:hover {
+  background: #082e68;
+}
+
+.save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+  .admin-tasks-container {
+    padding: 15px;
+  }
+
+  .page-header {
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .page-header h1 {
+    font-size: 22px;
+  }
+
+  .add-btn {
+    padding: 10px 14px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-overlay {
+    padding: 10px;
+  }
+
+  .modal {
+    max-height: 95vh;
+  }
+
+}

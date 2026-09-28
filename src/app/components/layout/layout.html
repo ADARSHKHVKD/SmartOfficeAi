@@ -1,0 +1,150 @@
+<!-- <app-toolbar></app-toolbar> -->
+
+<div class="main-layout">
+
+  <!-- Sidebar -->
+
+  <aside class="sidebar">
+
+    <div class="menu">
+
+      <a routerLink="/dashboard"
+         routerLinkActive="active">
+
+        <span class="icon">▣</span>
+        <span>Dashboard</span>
+
+      </a>
+      <a
+        *ngIf="role === 'manager'"
+        routerLink="/manager-dashboard"
+        routerLinkActive="active">
+
+        <span class="icon">📊</span>
+
+        <span>Manager Dashboard</span>
+
+      </a>
+
+
+      <!-- <a routerLink="/tasks"
+         routerLinkActive="active">
+
+        <span class="icon">✓</span>
+        <span>Tasks</span>
+
+      </a> -->
+      <!-- Employee Tasks -->
+
+      <a
+        *ngIf="role !== 'admin'"
+        routerLink="/tasks"
+        routerLinkActive="active">
+
+        <span class="icon">📋</span>
+        <span>Tasks</span>
+
+      </a>
+
+
+      <!-- Admin Tasks -->
+
+      <a
+        *ngIf="role === 'admin'"
+        routerLink="/admin-tasks"
+        routerLinkActive="active">
+
+        <span class="icon">📋</span>
+        <span>Tasks</span>
+
+      </a>
+
+
+      <a routerLink="/timesheets"
+         routerLinkActive="active">
+
+        <span class="icon">◷</span>
+        <span>Timesheets</span>
+
+      </a>
+      <a
+        *ngIf="role === 'manager'"
+        routerLink="/manager-timesheets"
+        routerLinkActive="active">
+
+        <span class="icon">◷</span>
+        <span>Manager Timesheets</span>
+
+      </a>
+
+
+      <a routerLink="/leave"
+         routerLinkActive="active">
+
+        <span class="icon">▤</span>
+        <span>Leave</span>
+
+      </a>
+        <a
+        *ngIf="role === 'manager'"
+        routerLink="/manager-leave"
+        routerLinkActive="active">
+
+        <span class="icon">✓</span>
+
+        <span>Leave Requests</span>
+
+        </a>
+
+
+      <a routerLink="/attendance"
+         routerLinkActive="active">
+
+        <span class="icon">◉</span>
+        <span>Attendance</span>
+
+      </a>
+      <a
+        *ngIf="role === 'manager'"
+        routerLink="/manager-attendance"
+        routerLinkActive="active">
+
+        <span class="icon">◉</span>
+        <span>Manager Attendance</span>
+
+      </a>
+      <a
+        *ngIf="role === 'admin'"
+        routerLink="/admin-users"
+        routerLinkActive="active">
+
+        <span class="icon">👥</span>
+        <span>Users</span>
+
+      </a>
+      <a
+        *ngIf="role === 'admin'"
+        routerLink="/admin-departments"
+        routerLinkActive="active">
+
+        <span class="icon">🏢</span>
+
+        <span>Departments</span>
+
+      </a>
+
+    </div>
+
+  </aside>
+
+
+  <!-- Page content -->
+
+  <main class="content">
+
+    <router-outlet></router-outlet>
+
+  </main>
+
+</div>
+<app-ai-chatbot></app-ai-chatbot>

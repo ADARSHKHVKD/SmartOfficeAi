@@ -1,0 +1,106 @@
+.main-layout {
+  display: flex;
+
+  min-height: 100vh;
+
+  padding-top: 70px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================
+   SIDEBAR
+   ========================= */
+
+.sidebar {
+  position: fixed;
+
+  top: 70px;
+  left: 0;
+  bottom: 0;
+
+  width: 240px;
+
+  background: white;
+
+  border-right: 1px solid #e5e9ef;
+
+  box-sizing: border-box;
+
+  padding: 20px 12px;
+}
+
+
+/* =========================
+   MENU
+   ========================= */
+
+.menu {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.menu a {
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 0 15px;
+
+  box-sizing: border-box;
+
+  text-decoration: none;
+
+  color: #555;
+
+  border-radius: 7px;
+
+  font-size: 15px;
+
+  transition: 0.2s;
+}
+
+.menu a:hover {
+  background: #f0f5fb;
+
+  color: #0a3981;
+}
+
+.menu a.active {
+  background: #0a3981;
+
+  color: white;
+}
+
+.icon {
+  width: 22px;
+
+  text-align: center;
+
+  font-size: 17px;
+}
+
+
+/* =========================
+   CONTENT
+   ========================= */
+
+.content {
+  margin-left: 240px;
+
+  width: calc(100% - 240px);
+
+  min-height: calc(100vh - 70px);
+
+  padding: 30px;
+
+  box-sizing: border-box;
+
+  background: #f5f7fa;
+}

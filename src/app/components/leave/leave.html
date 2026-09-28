@@ -1,0 +1,256 @@
+<div class="leave-page">
+
+  <div class="page-header">
+
+    <div>
+
+      <h1>Leave Management</h1>
+
+      <p>
+        Apply for leave and track your leave requests
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- Apply Leave -->
+
+  <div class="form-card">
+
+    <h2>Apply Leave</h2>
+
+    <form>
+
+      <div class="form-row">
+
+        <div class="form-group">
+
+          <label>Leave Type</label>
+
+          <select
+            name="leave_type"
+            [(ngModel)]="leave.leave_type">
+
+            <option value="casual">
+              Casual Leave
+            </option>
+
+            <option value="sick">
+              Sick Leave
+            </option>
+
+            <option value="annual">
+              Annual Leave
+            </option>
+
+            <option value="emergency">
+              Emergency Leave
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Manager</label>
+
+          <select
+            name="manager"
+            [(ngModel)]="leave.manager">
+
+            <option [ngValue]="null">
+              Select manager
+            </option>
+
+            <option
+              *ngFor="let manager of managers"
+              [ngValue]="manager.id">
+
+              {{ manager.username }}
+
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <div class="form-row">
+
+        <div class="form-group">
+
+          <label>Start Date</label>
+
+          <input
+            type="date"
+            name="start_date"
+            [(ngModel)]="leave.start_date"
+          />
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>End Date</label>
+
+          <input
+            type="date"
+            name="end_date"
+            [(ngModel)]="leave.end_date"
+          />
+
+        </div>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Reason</label>
+
+        <textarea
+          name="reason"
+          [(ngModel)]="leave.reason"
+          placeholder="Enter reason for leave">
+        </textarea>
+
+      </div>
+
+
+      <div class="form-actions">
+
+        <button
+          type="button"
+          class="apply-button"
+          (click)="applyLeave()"
+          [disabled]="loading">
+
+          {{ loading ? 'Applying...' : 'Apply Leave' }}
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+
+  <!-- Leave History -->
+
+  <div class="table-card">
+
+    <div class="table-header">
+
+      <div>
+
+        <h2>My Leave Requests</h2>
+
+        <p>
+          View your submitted leave requests
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>ID</th>
+
+            <th>Leave Type</th>
+
+            <th>Start Date</th>
+
+            <th>End Date</th>
+
+            <th>Reason</th>
+
+            <th>Status</th>
+
+            <th>Manager Comment</th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <tr
+            *ngFor="let item of leaves">
+
+            <td>
+              {{ item.id }}
+            </td>
+
+            <td>
+              {{ item.leave_type }}
+            </td>
+
+            <td>
+              {{ item.start_date }}
+            </td>
+
+            <td>
+              {{ item.end_date }}
+            </td>
+
+            <td class="reason">
+              {{ item.reason }}
+            </td>
+
+            <td>
+
+              <span
+                class="status"
+                [ngClass]="item.status">
+
+                {{ item.status }}
+
+              </span>
+
+            </td>
+
+            <td>
+              {{ item.manager_comment || '-' }}
+            </td>
+
+          </tr>
+
+
+          <tr *ngIf="leaves.length === 0">
+
+            <td
+              colspan="7"
+              class="no-data">
+
+              No leave requests found
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
